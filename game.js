@@ -1,5 +1,4 @@
-
-// game.js – Updated with chapters, adaptive difficulty, and progression
+// game.js – Full version with story chapters and adaptive progression
 const startScreen = document.getElementById("start-screen");
 const startButton = document.getElementById("start-button");
 const gameContainer = document.getElementById("game-container");
@@ -17,595 +16,99 @@ let currentDifficulty = 1;
 let nextImageURL = null;
 let startTime = 0;
 
-// game.js — 50 questions across 5 chapters
-
+// 🧠 Game Chapters (50 levels total)
 const chapters = [
   {
     name: "The Gear Room",
     type: "add-subtract",
     intro: "🛠 Chapter 1: The Gear Room — Power up the system with addition and subtraction!",
     levels: [
-  {
-    "scene": "Solve the gear calculation: 38 + 24",
-    "question": "What is 38 + 24?",
-    "choices": [
-      62,
-      63,
-      61
-    ],
-    "correctAnswer": 62,
-    "successMessage": "Gear activated!"
-  },
-  {
-    "scene": "Solve the gear calculation: 62 + 15",
-    "question": "What is 62 + 15?",
-    "choices": [
-      77,
-      78,
-      76
-    ],
-    "correctAnswer": 77,
-    "successMessage": "Gear activated!"
-  },
-  {
-    "scene": "Solve the gear calculation: 72 + 24",
-    "question": "What is 72 + 24?",
-    "choices": [
-      96,
-      97,
-      95
-    ],
-    "correctAnswer": 96,
-    "successMessage": "Gear activated!"
-  },
-  {
-    "scene": "Solve the gear calculation: 32 + 46",
-    "question": "What is 32 + 46?",
-    "choices": [
-      78,
-      79,
-      77
-    ],
-    "correctAnswer": 78,
-    "successMessage": "Gear activated!"
-  },
-  {
-    "scene": "Solve the gear calculation: 13 + 64",
-    "question": "What is 13 + 64?",
-    "choices": [
-      77,
-      78,
-      76
-    ],
-    "correctAnswer": 77,
-    "successMessage": "Gear activated!"
-  },
-  {
-    "scene": "Solve the gear calculation: 57 + 24",
-    "question": "What is 57 + 24?",
-    "choices": [
-      81,
-      82,
-      80
-    ],
-    "correctAnswer": 81,
-    "successMessage": "Gear activated!"
-  },
-  {
-    "scene": "Solve the gear calculation: 22 + 33",
-    "question": "What is 22 + 33?",
-    "choices": [
-      55,
-      56,
-      54
-    ],
-    "correctAnswer": 55,
-    "successMessage": "Gear activated!"
-  },
-  {
-    "scene": "Solve the gear calculation: 22 + 46",
-    "question": "What is 22 + 46?",
-    "choices": [
-      68,
-      69,
-      67
-    ],
-    "correctAnswer": 68,
-    "successMessage": "Gear activated!"
-  },
-  {
-    "scene": "Solve the gear calculation: 35 + 45",
-    "question": "What is 35 + 45?",
-    "choices": [
-      80,
-      81,
-      79
-    ],
-    "correctAnswer": 80,
-    "successMessage": "Gear activated!"
-  },
-  {
-    "scene": "Solve the gear calculation: 45 + 14",
-    "question": "What is 45 + 14?",
-    "choices": [
-      59,
-      60,
-      58
-    ],
-    "correctAnswer": 59,
-    "successMessage": "Gear activated!"
-  }
-]
+      { scene: "Solve the gear calculation: 45 + 32", question: "What is 45 + 32?", choices: [77, 76, 78], correctAnswer: 77, successMessage: "Gear activated!" },
+      { scene: "The generator is offline! What is 78 - 29?", question: "What is 78 - 29?", choices: [49, 50, 48], correctAnswer: 49, successMessage: "Generator humming!" },
+      { scene: "Turn on the lights: 23 + 19", question: "What is 23 + 19?", choices: [42, 43, 44], correctAnswer: 42, successMessage: "Lights on!" },
+      { scene: "Open the first hatch: 61 - 18", question: "What is 61 - 18?", choices: [43, 42, 44], correctAnswer: 43, successMessage: "Hatch opened!" },
+      { scene: "Power the door motor: 37 + 42", question: "What is 37 + 42?", choices: [79, 78, 80], correctAnswer: 79, successMessage: "Motor spinning!" },
+      { scene: "Start the coolant fans: 90 - 45", question: "What is 90 - 45?", choices: [45, 44, 46], correctAnswer: 45, successMessage: "Coolant activated!" },
+      { scene: "Calibrate the servo arm: 66 + 13", question: "What is 66 + 13?", choices: [79, 78, 80], correctAnswer: 79, successMessage: "Arm calibrated!" },
+      { scene: "Recharge the battery unit: 100 - 27", question: "What is 100 - 27?", choices: [73, 74, 72], correctAnswer: 73, successMessage: "Battery charged!" },
+      { scene: "Activate piston 2: 54 + 36", question: "What is 54 + 36?", choices: [90, 91, 89], correctAnswer: 90, successMessage: "Piston 2 operational!" },
+      { scene: "Final bolt alignment: 88 - 24", question: "What is 88 - 24?", choices: [64, 65, 63], correctAnswer: 64, successMessage: "Alignment complete!" }
+    ]
   },
   {
     name: "Conveyor Belt Chaos",
     type: "word-problem",
     intro: "📦 Chapter 2: Conveyor Belt Chaos — Solve story problems to clear the jam!",
     levels: [
-  {
-    "scene": "Conveyor jam detected (task 1).",
-    "question": "You had 14 parts. You used 3. How many are left?",
-    "choices": [
-      11,
-      12,
-      10
-    ],
-    "correctAnswer": 11,
-    "successMessage": "Jam cleared!"
-  },
-  {
-    "scene": "Conveyor jam detected (task 2).",
-    "question": "You had 15 parts. You used 15. How many are left?",
-    "choices": [
-      0,
-      1,
-      -1
-    ],
-    "correctAnswer": 0,
-    "successMessage": "Jam cleared!"
-  },
-  {
-    "scene": "Conveyor jam detected (task 3).",
-    "question": "You had 5 parts. You used 1. How many are left?",
-    "choices": [
-      4,
-      5,
-      3
-    ],
-    "correctAnswer": 4,
-    "successMessage": "Jam cleared!"
-  },
-  {
-    "scene": "Conveyor jam detected (task 4).",
-    "question": "You had 5 parts. You used 4. How many are left?",
-    "choices": [
-      1,
-      2,
-      0
-    ],
-    "correctAnswer": 1,
-    "successMessage": "Jam cleared!"
-  },
-  {
-    "scene": "Conveyor jam detected (task 5).",
-    "question": "You had 14 parts. You used 14. How many are left?",
-    "choices": [
-      0,
-      1,
-      -1
-    ],
-    "correctAnswer": 0,
-    "successMessage": "Jam cleared!"
-  },
-  {
-    "scene": "Conveyor jam detected (task 6).",
-    "question": "You had 10 parts. You used 8. How many are left?",
-    "choices": [
-      2,
-      3,
-      1
-    ],
-    "correctAnswer": 2,
-    "successMessage": "Jam cleared!"
-  },
-  {
-    "scene": "Conveyor jam detected (task 7).",
-    "question": "You had 6 parts. You used 6. How many are left?",
-    "choices": [
-      0,
-      1,
-      -1
-    ],
-    "correctAnswer": 0,
-    "successMessage": "Jam cleared!"
-  },
-  {
-    "scene": "Conveyor jam detected (task 8).",
-    "question": "You had 14 parts. You used 1. How many are left?",
-    "choices": [
-      13,
-      14,
-      12
-    ],
-    "correctAnswer": 13,
-    "successMessage": "Jam cleared!"
-  },
-  {
-    "scene": "Conveyor jam detected (task 9).",
-    "question": "You had 13 parts. You used 3. How many are left?",
-    "choices": [
-      10,
-      11,
-      9
-    ],
-    "correctAnswer": 10,
-    "successMessage": "Jam cleared!"
-  },
-  {
-    "scene": "Conveyor jam detected (task 10).",
-    "question": "You had 15 parts. You used 12. How many are left?",
-    "choices": [
-      3,
-      4,
-      2
-    ],
-    "correctAnswer": 3,
-    "successMessage": "Jam cleared!"
-  }
-]
+      { scene: "Sprocket found 25 toolkits and got 13 more. How many now?", question: "25 + 13 = ?", choices: [38, 37, 39], correctAnswer: 38, successMessage: "Toolkits counted!" },
+      { scene: "There are 42 bolts. 17 fell off. How many remain?", question: "42 - 17 = ?", choices: [25, 26, 24], correctAnswer: 25, successMessage: "Bolts updated!" },
+      { scene: "Bin A has 16 screws, Bin B has 14. Total?", question: "16 + 14 = ?", choices: [30, 31, 29], correctAnswer: 30, successMessage: "Screws totaled!" },
+      { scene: "36 widgets, 28 more added. Total?", question: "36 + 28 = ?", choices: [64, 65, 63], correctAnswer: 64, successMessage: "Widgets loaded!" },
+      { scene: "60 rivets, 20 used. Remaining?", question: "60 - 20 = ?", choices: [40, 39, 41], correctAnswer: 40, successMessage: "Rivets remaining!" },
+      { scene: "3 boxes × 12 kits. Total kits?", question: "3 × 12 = ?", choices: [36, 35, 37], correctAnswer: 36, successMessage: "Kits counted!" },
+      { scene: "15 bins × 5 tools. Total?", question: "15 × 5 = ?", choices: [75, 74, 76], correctAnswer: 75, successMessage: "Inventory tallied!" },
+      { scene: "40 wires, 17 used. Wires left?", question: "40 - 17 = ?", choices: [23, 22, 24], correctAnswer: 23, successMessage: "Wires left noted!" },
+      { scene: "8 gadgets, 6 more added. Now?", question: "8 + 6 = ?", choices: [14, 13, 15], correctAnswer: 14, successMessage: "Gadget count updated!" },
+      { scene: "90 widgets, 45 collected. Left?", question: "90 - 45 = ?", choices: [45, 44, 46], correctAnswer: 45, successMessage: "Belt cleared!" }
+    ]
   },
   {
     name: "Glitchy Robot Battle",
     type: "multiplication",
     intro: "🤖 Chapter 3: Glitchy Robot Battle — Use multiplication to disable rogue bots!",
     levels: [
-  {
-    "scene": "Glitchbot threat level 1.",
-    "question": "What is 5 \u00d7 9?",
-    "choices": [
-      45,
-      46,
-      44
-    ],
-    "correctAnswer": 45,
-    "successMessage": "Bot neutralized!"
-  },
-  {
-    "scene": "Glitchbot threat level 2.",
-    "question": "What is 7 \u00d7 2?",
-    "choices": [
-      14,
-      15,
-      13
-    ],
-    "correctAnswer": 14,
-    "successMessage": "Bot neutralized!"
-  },
-  {
-    "scene": "Glitchbot threat level 3.",
-    "question": "What is 10 \u00d7 8?",
-    "choices": [
-      80,
-      81,
-      79
-    ],
-    "correctAnswer": 80,
-    "successMessage": "Bot neutralized!"
-  },
-  {
-    "scene": "Glitchbot threat level 4.",
-    "question": "What is 10 \u00d7 5?",
-    "choices": [
-      50,
-      51,
-      49
-    ],
-    "correctAnswer": 50,
-    "successMessage": "Bot neutralized!"
-  },
-  {
-    "scene": "Glitchbot threat level 5.",
-    "question": "What is 3 \u00d7 7?",
-    "choices": [
-      21,
-      22,
-      20
-    ],
-    "correctAnswer": 21,
-    "successMessage": "Bot neutralized!"
-  },
-  {
-    "scene": "Glitchbot threat level 6.",
-    "question": "What is 3 \u00d7 7?",
-    "choices": [
-      21,
-      22,
-      20
-    ],
-    "correctAnswer": 21,
-    "successMessage": "Bot neutralized!"
-  },
-  {
-    "scene": "Glitchbot threat level 7.",
-    "question": "What is 7 \u00d7 5?",
-    "choices": [
-      35,
-      36,
-      34
-    ],
-    "correctAnswer": 35,
-    "successMessage": "Bot neutralized!"
-  },
-  {
-    "scene": "Glitchbot threat level 8.",
-    "question": "What is 6 \u00d7 7?",
-    "choices": [
-      42,
-      43,
-      41
-    ],
-    "correctAnswer": 42,
-    "successMessage": "Bot neutralized!"
-  },
-  {
-    "scene": "Glitchbot threat level 9.",
-    "question": "What is 10 \u00d7 10?",
-    "choices": [
-      100,
-      101,
-      99
-    ],
-    "correctAnswer": 100,
-    "successMessage": "Bot neutralized!"
-  },
-  {
-    "scene": "Glitchbot threat level 10.",
-    "question": "What is 4 \u00d7 8?",
-    "choices": [
-      32,
-      33,
-      31
-    ],
-    "correctAnswer": 32,
-    "successMessage": "Bot neutralized!"
-  }
-]
+      { scene: "Glitchbot 1!", question: "What is 6 × 8?", choices: [48, 47, 49], correctAnswer: 48, successMessage: "Bot deactivated!" },
+      { scene: "Glitchbot 2!", question: "What is 7 × 4?", choices: [28, 27, 29], correctAnswer: 28, successMessage: "Stabilized!" },
+      { scene: "Glitchbot 3!", question: "What is 9 × 3?", choices: [27, 28, 26], correctAnswer: 27, successMessage: "Bot neutralized!" },
+      { scene: "Glitchbot 4!", question: "What is 5 × 5?", choices: [25, 26, 24], correctAnswer: 25, successMessage: "Bot rebooted!" },
+      { scene: "Glitchbot 5!", question: "What is 3 × 9?", choices: [27, 26, 28], correctAnswer: 27, successMessage: "Stunned!" },
+      { scene: "Glitchbot 6!", question: "What is 8 × 6?", choices: [48, 47, 49], correctAnswer: 48, successMessage: "Bot disabled!" },
+      { scene: "Glitchbot 7!", question: "What is 2 × 7?", choices: [14, 13, 15], correctAnswer: 14, successMessage: "Cleared!" },
+      { scene: "Glitchbot 8!", question: "What is 4 × 4?", choices: [16, 15, 17], correctAnswer: 16, successMessage: "Bot offline!" },
+      { scene: "Glitchbot 9!", question: "What is 10 × 3?", choices: [30, 31, 29], correctAnswer: 30, successMessage: "Down!" },
+      { scene: "Glitchbot 10!", question: "What is 7 × 6?", choices: [42, 41, 43], correctAnswer: 42, successMessage: "Battle won!" }
+    ]
   },
   {
     name: "Security Panel Puzzle",
     type: "patterns",
     intro: "🔐 Chapter 4: Security Panel Puzzle — Complete the number patterns to unlock!",
     levels: [
-  {
-    "scene": "Pattern lock 1.",
-    "question": "5, 7, ?, 11 \u2014 what fits?",
-    "choices": [
-      9,
-      10,
-      8
-    ],
-    "correctAnswer": 9,
-    "successMessage": "Pattern accepted!"
-  },
-  {
-    "scene": "Pattern lock 2.",
-    "question": "3, 5, ?, 9 \u2014 what fits?",
-    "choices": [
-      7,
-      8,
-      6
-    ],
-    "correctAnswer": 7,
-    "successMessage": "Pattern accepted!"
-  },
-  {
-    "scene": "Pattern lock 3.",
-    "question": "5, 7, ?, 11 \u2014 what fits?",
-    "choices": [
-      9,
-      10,
-      8
-    ],
-    "correctAnswer": 9,
-    "successMessage": "Pattern accepted!"
-  },
-  {
-    "scene": "Pattern lock 4.",
-    "question": "4, 6, ?, 10 \u2014 what fits?",
-    "choices": [
-      8,
-      9,
-      7
-    ],
-    "correctAnswer": 8,
-    "successMessage": "Pattern accepted!"
-  },
-  {
-    "scene": "Pattern lock 5.",
-    "question": "4, 6, ?, 10 \u2014 what fits?",
-    "choices": [
-      8,
-      9,
-      7
-    ],
-    "correctAnswer": 8,
-    "successMessage": "Pattern accepted!"
-  },
-  {
-    "scene": "Pattern lock 6.",
-    "question": "1, 3, ?, 7 \u2014 what fits?",
-    "choices": [
-      5,
-      6,
-      4
-    ],
-    "correctAnswer": 5,
-    "successMessage": "Pattern accepted!"
-  },
-  {
-    "scene": "Pattern lock 7.",
-    "question": "4, 6, ?, 10 \u2014 what fits?",
-    "choices": [
-      8,
-      9,
-      7
-    ],
-    "correctAnswer": 8,
-    "successMessage": "Pattern accepted!"
-  },
-  {
-    "scene": "Pattern lock 8.",
-    "question": "1, 3, ?, 7 \u2014 what fits?",
-    "choices": [
-      5,
-      6,
-      4
-    ],
-    "correctAnswer": 5,
-    "successMessage": "Pattern accepted!"
-  },
-  {
-    "scene": "Pattern lock 9.",
-    "question": "5, 7, ?, 11 \u2014 what fits?",
-    "choices": [
-      9,
-      10,
-      8
-    ],
-    "correctAnswer": 9,
-    "successMessage": "Pattern accepted!"
-  },
-  {
-    "scene": "Pattern lock 10.",
-    "question": "3, 5, ?, 9 \u2014 what fits?",
-    "choices": [
-      7,
-      8,
-      6
-    ],
-    "correctAnswer": 7,
-    "successMessage": "Pattern accepted!"
-  }
-]
+      { scene: "Code: 2, 4, 6, ?, 10", question: "What fits?", choices: [8, 7, 9], correctAnswer: 8, successMessage: "Panel unlocked!" },
+      { scene: "Code: 5, 10, ?, 20", question: "What fits?", choices: [15, 14, 16], correctAnswer: 15, successMessage: "Code accepted!" },
+      { scene: "Code: 3, 6, 9, ?, 15", question: "What fits?", choices: [12, 11, 13], correctAnswer: 12, successMessage: "Matched!" },
+      { scene: "Code: 1, 2, 4, 8, ?", question: "What fits?", choices: [16, 15, 17], correctAnswer: 16, successMessage: "Sequence synced!" },
+      { scene: "Code: 7, 14, ?, 28", question: "What fits?", choices: [21, 20, 22], correctAnswer: 21, successMessage: "Logic complete!" },
+      { scene: "Code: 9, 18, ?, 36", question: "What fits?", choices: [27, 26, 28], correctAnswer: 27, successMessage: "Access granted!" },
+      { scene: "Code: 1, 3, 6, 10, ?", question: "What fits?", choices: [15, 14, 13], correctAnswer: 15, successMessage: "Panel open!" },
+      { scene: "Code: 10, 20, ?, 40", question: "What fits?", choices: [30, 29, 31], correctAnswer: 30, successMessage: "Unlocked!" },
+      { scene: "Code: 4, 8, 12, ?, 20", question: "What fits?", choices: [16, 15, 17], correctAnswer: 16, successMessage: "Key accepted!" },
+      { scene: "Code: 13, 26, 39, ?, 65", question: "What fits?", choices: [52, 50, 54], correctAnswer: 52, successMessage: "Final door opened!" }
+    ]
   },
   {
     name: "Robo Reunion",
     type: "review",
     intro: "🎉 Final Chapter: Robo Reunion — Use all your skills to free the robot team!",
     levels: [
-  {
-    "scene": "Final system test 1.",
-    "question": "What is 9 \u00d7 11 - 3?",
-    "choices": [
-      96,
-      97,
-      95
-    ],
-    "correctAnswer": 96,
-    "successMessage": "System passed!"
-  },
-  {
-    "scene": "Final system test 2.",
-    "question": "What is 7 \u00d7 4 - 6?",
-    "choices": [
-      22,
-      23,
-      21
-    ],
-    "correctAnswer": 22,
-    "successMessage": "System passed!"
-  },
-  {
-    "scene": "Final system test 3.",
-    "question": "What is 9 \u00d7 8 - 2?",
-    "choices": [
-      70,
-      71,
-      69
-    ],
-    "correctAnswer": 70,
-    "successMessage": "System passed!"
-  },
-  {
-    "scene": "Final system test 4.",
-    "question": "What is 5 \u00d7 10 - 4?",
-    "choices": [
-      46,
-      47,
-      45
-    ],
-    "correctAnswer": 46,
-    "successMessage": "System passed!"
-  },
-  {
-    "scene": "Final system test 5.",
-    "question": "What is 9 \u00d7 12 - 3?",
-    "choices": [
-      105,
-      106,
-      104
-    ],
-    "correctAnswer": 105,
-    "successMessage": "System passed!"
-  },
-  {
-    "scene": "Final system test 6.",
-    "question": "What is 9 \u00d7 4 - 4?",
-    "choices": [
-      32,
-      33,
-      31
-    ],
-    "correctAnswer": 32,
-    "successMessage": "System passed!"
-  },
-  {
-    "scene": "Final system test 7.",
-    "question": "What is 9 \u00d7 8 - 8?",
-    "choices": [
-      64,
-      65,
-      63
-    ],
-    "correctAnswer": 64,
-    "successMessage": "System passed!"
-  },
-  {
-    "scene": "Final system test 8.",
-    "question": "What is 3 \u00d7 9 - 3?",
-    "choices": [
-      24,
-      25,
-      23
-    ],
-    "correctAnswer": 24,
-    "successMessage": "System passed!"
-  },
-  {
-    "scene": "Final system test 9.",
-    "question": "What is 10 \u00d7 3 - 5?",
-    "choices": [
-      25,
-      26,
-      24
-    ],
-    "correctAnswer": 25,
-    "successMessage": "System passed!"
-  },
-  {
-    "scene": "Final system test 10.",
-    "question": "What is 8 \u00d7 7 - 6?",
-    "choices": [
-      50,
-      51,
-      49
-    ],
-    "correctAnswer": 50,
-    "successMessage": "System passed!"
-  }
-]
+      { scene: "Rescue robot 1!", question: "What is 8 × 7?", choices: [56, 57, 55], correctAnswer: 56, successMessage: "Robot freed!" },
+      { scene: "Rescue robot 2!", question: "What is 60 ÷ 5?", choices: [12, 11, 13], correctAnswer: 12, successMessage: "Freed!" },
+      { scene: "Rescue robot 3!", question: "What is 15 + 26?", choices: [41, 40, 42], correctAnswer: 41, successMessage: "Unlocked!" },
+      { scene: "Rescue robot 4!", question: "What is 90 - 45?", choices: [45, 46, 44], correctAnswer: 45, successMessage: "Escape complete!" },
+      { scene: "Rescue robot 5!", question: "What is 3 × 9?", choices: [27, 28, 26], correctAnswer: 27, successMessage: "Good job!" },
+      { scene: "Rescue robot 6!", question: "What is 72 ÷ 8?", choices: [9, 8, 10], correctAnswer: 9, successMessage: "Unlocked!" },
+      { scene: "Rescue robot 7!", question: "What is 25 + 36?", choices: [61, 60, 62], correctAnswer: 61, successMessage: "Door opened!" },
+      { scene: "Rescue robot 8!", question: "What is 100 - 25?", choices: [75, 74, 76], correctAnswer: 75, successMessage: "Systems online!" },
+      { scene: "Rescue robot 9!", question: "What is 11 + 14?", choices: [25, 26, 24], correctAnswer: 25, successMessage: "Robot rebooted!" },
+      { scene: "Rescue robot 10!", question: "What is 6 × 7?", choices: [42, 41, 43], correctAnswer: 42, successMessage: "Mission complete!" }
+    ]
   }
 ];
+
+// ... CONTINUES WITH preloadImage(), showLevel(), handleAnswer(), etc.
+// [See your previous full script for remaining logic]
+
+
 
 
 function preloadImage(scene) {
