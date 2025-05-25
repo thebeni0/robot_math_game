@@ -23,16 +23,16 @@ const chapters = [
     type: "add-subtract",
     intro: "🛠 Chapter 1: The Gear Room — Power up the system with addition and subtraction!",
     levels: [
-      { scene: "Solve the gear calculation: 45 + 32", question: "What is 45 + 32?", choices: [77, 76, 78], correctAnswer: 77, successMessage: "Gear activated!" },
-      { scene: "The generator is offline! What is 78 - 29?", question: "What is 78 - 29?", choices: [49, 50, 48], correctAnswer: 49, successMessage: "Generator humming!" },
-      { scene: "Turn on the lights: 23 + 19", question: "What is 23 + 19?", choices: [42, 43, 44], correctAnswer: 42, successMessage: "Lights on!" },
-      { scene: "Open the first hatch: 61 - 18", question: "What is 61 - 18?", choices: [43, 42, 44], correctAnswer: 43, successMessage: "Hatch opened!" },
-      { scene: "Power the door motor: 37 + 42", question: "What is 37 + 42?", choices: [79, 78, 80], correctAnswer: 79, successMessage: "Motor spinning!" },
-      { scene: "Start the coolant fans: 90 - 45", question: "What is 90 - 45?", choices: [45, 44, 46], correctAnswer: 45, successMessage: "Coolant activated!" },
-      { scene: "Calibrate the servo arm: 66 + 13", question: "What is 66 + 13?", choices: [79, 78, 80], correctAnswer: 79, successMessage: "Arm calibrated!" },
-      { scene: "Recharge the battery unit: 100 - 27", question: "What is 100 - 27?", choices: [73, 74, 72], correctAnswer: 73, successMessage: "Battery charged!" },
-      { scene: "Activate piston 2: 54 + 36", question: "What is 54 + 36?", choices: [90, 91, 89], correctAnswer: 90, successMessage: "Piston 2 operational!" },
-      { scene: "Final bolt alignment: 88 - 24", question: "What is 88 - 24?", choices: [64, 65, 63], correctAnswer: 64, successMessage: "Alignment complete!" }
+      { scene: "Solve the gear calculation", question: "What is 45 + 32?", choices: [77, 76, 78], correctAnswer: 77, successMessage: "Gear activated!" },
+      { scene: "The generator is offline!", question: "What is 78 - 29?", choices: [49, 50, 48], correctAnswer: 49, successMessage: "Generator humming!" },
+      { scene: "Turn on the lights", question: "What is 23 + 19?", choices: [42, 43, 44], correctAnswer: 42, successMessage: "Lights on!" },
+      { scene: "Open the first hatch", question: "What is 61 - 18?", choices: [43, 42, 44], correctAnswer: 43, successMessage: "Hatch opened!" },
+      { scene: "Power the door motor", question: "What is 37 + 42?", choices: [79, 78, 80], correctAnswer: 79, successMessage: "Motor spinning!" },
+      { scene: "Start the coolant fans", question: "What is 90 - 45?", choices: [45, 44, 46], correctAnswer: 45, successMessage: "Coolant activated!" },
+      { scene: "Calibrate the servo arm", question: "What is 66 + 13?", choices: [79, 78, 80], correctAnswer: 79, successMessage: "Arm calibrated!" },
+      { scene: "Recharge the battery unit", question: "What is 100 - 27?", choices: [73, 74, 72], correctAnswer: 73, successMessage: "Battery charged!" },
+      { scene: "Activate piston 2", question: "What is 54 + 36?", choices: [90, 91, 89], correctAnswer: 90, successMessage: "Piston 2 operational!" },
+      { scene: "Final bolt alignment", question: "What is 88 - 24?", choices: [64, 65, 63], correctAnswer: 64, successMessage: "Alignment complete!" }
     ]
   },
   {
