@@ -1,4 +1,3 @@
-// game.js
 const startScreen = document.getElementById("start-screen");
 const startButton = document.getElementById("start-button");
 const gameContainer = document.getElementById("game-container");
@@ -11,6 +10,9 @@ const resultEl = document.getElementById("result");
 const nextButton = document.getElementById("next-button");
 
 let nextImageURL = null;
+let currentLevel = 0;
+let currentDifficulty = 1;  // Ranges from 1 (easy) to 3 (hard)
+let startTime = 0;
 
 function preloadImageForLevel(level) {
   if (levels[level]) {
@@ -28,9 +30,7 @@ function preloadImageForLevel(level) {
   }
 }
 
-
 const levels = [
-  // Chapter 1: Gear Room
   { scene: "Chapter 1: The Gear Room. Sprocket is stuck and needs power to open the door!", question: "What is 23 + 15?", choices: [38, 37, 39], correctAnswer: 38, successMessage: "You powered the system! The door unlocks!" },
   { scene: "Chapter 1: The Gear Room. A second panel requires calibration!", question: "What is 9 + 6?", choices: [14, 15, 16], correctAnswer: 15, successMessage: "Calibration successful!" },
   { scene: "Chapter 1: Gear Room - Battery check initiated.", question: "What is 45 - 17?", choices: [28, 27, 29], correctAnswer: 28, successMessage: "Battery charged!" },
@@ -42,7 +42,6 @@ const levels = [
   { scene: "Chapter 1: Backup generator sync.", question: "What is 5 × 6?", choices: [30, 31, 29], correctAnswer: 30, successMessage: "Generator synced!" },
   { scene: "Chapter 1: Last fuse test.", question: "What is 20 + 15?", choices: [34, 35, 36], correctAnswer: 35, successMessage: "Fuse passed! Gear Room complete!" },
 
-  // Chapter 2: The Bridge
   { scene: "Chapter 2: The Bridge is broken! Answer the riddle to fix the controls.", question: "What is 42 - 19?", choices: [23, 24, 25], correctAnswer: 23, successMessage: "The bridge lowers and you move forward!" },
   { scene: "Chapter 2: Support beam math.", question: "What is 12 × 3?", choices: [36, 35, 34], correctAnswer: 36, successMessage: "Beam locked in!" },
   { scene: "Chapter 2: Fixing bridge light sensors.", question: "What is 50 ÷ 5?", choices: [10, 9, 11], correctAnswer: 10, successMessage: "Sensors calibrated!" },
@@ -54,8 +53,6 @@ const levels = [
   { scene: "Chapter 2: Crossbeam integrity scan.", question: "What is 11 + 14?", choices: [25, 24, 26], correctAnswer: 25, successMessage: "Scan complete!" },
   { scene: "Chapter 2: Final lock override.", question: "What is 6 × 7?", choices: [42, 41, 43], correctAnswer: 42, successMessage: "Bridge fully restored!" }
 ];
-
-let currentLevel = 0;
 
 startButton.onclick = () => {
   startScreen.classList.add("hidden");
@@ -70,14 +67,12 @@ function showLevel(level) {
   imageEl.classList.add("hidden");
   imageEl.src = "";
 
-  // If we already preloaded it, use it
   if (nextImageURL) {
     imageEl.src = nextImageURL;
     imageEl.classList.remove("hidden");
-    nextImageURL = null; // reset for next cycle
+    nextImageURL = null;
   }
 
-  // Preload the NEXT image if it exists
   if (levels[level + 1]) {
     fetch("https://dalle-image-api.onrender.com/generate-image", {
       method: "POST",
@@ -92,8 +87,8 @@ function showLevel(level) {
       });
   }
 
-  // Show the rest of the UI
   robotAnimation.classList.remove("hidden");
+
   setTimeout(() => {
     robotAnimation.classList.add("hidden");
     questionEl.textContent = current.question;
@@ -107,18 +102,26 @@ function showLevel(level) {
     questionContainer.classList.remove("hidden");
     resultEl.textContent = "";
     nextButton.classList.add("hidden");
+    startTime = Date.now();
   }, 1000);
 }
 
-
 function handleAnswer(choice) {
   const current = levels[currentLevel];
+  const timeTaken = Date.now() - startTime;
+
   if (choice === current.correctAnswer) {
+    if (timeTaken < 5000) {
+      currentDifficulty = Math.min(3, currentDifficulty + 1);
+    }
     resultEl.textContent = current.successMessage;
     nextButton.classList.remove("hidden");
   } else {
+    currentDifficulty = Math.max(1, currentDifficulty - 1);
     resultEl.textContent = "Oops! Try again.";
   }
+
+  console.log(`Time taken: ${timeTaken}ms, New difficulty: ${currentDifficulty}`);
 }
 
 nextButton.onclick = () => {
@@ -134,4 +137,5 @@ nextButton.onclick = () => {
 };
 
 preloadImageForLevel(0);
+
 
