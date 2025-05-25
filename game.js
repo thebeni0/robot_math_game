@@ -47,6 +47,7 @@ function showLevel(level) {
   })
     .then(res => res.json())
     .then(data => {
+      console.log("Image generation response:", data);
       if (data.image_url) {
         imageEl.src = data.image_url;
         imageEl.classList.remove("hidden");
