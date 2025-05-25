@@ -15,6 +15,13 @@ body {
 .hidden {
   display: none;
 }
+.story-image {
+  width: 100%;
+  max-height: 300px;
+  object-fit: contain;
+  border-radius: 12px;
+  margin: 20px 0;
+}
 button {
   margin-top: 15px;
   padding: 10px 20px;
