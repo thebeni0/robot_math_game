@@ -39,6 +39,8 @@ function showLevel(level) {
   const current = levels[level];
   storyEl.textContent = current.scene;
   const imageEl = document.getElementById("story-image"); // add <img id="story-image"> in your HTML
+  imageEl.classList.add("hidden");
+  imageEl.src = "";
 
   fetch("https://dalle-image-api.onrender.com/generate-image", {
     method: "POST",
