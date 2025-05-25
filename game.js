@@ -12,6 +12,23 @@ const nextButton = document.getElementById("next-button");
 
 let nextImageURL = null;
 
+function preloadImageForLevel(level) {
+  if (levels[level]) {
+    fetch("https://dalle-image-api.onrender.com/generate-image", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ prompt: levels[level].scene })
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (data.image_url) {
+          nextImageURL = data.image_url;
+        }
+      });
+  }
+}
+
+
 const levels = [
   // Chapter 1: Gear Room
   { scene: "Chapter 1: The Gear Room. Sprocket is stuck and needs power to open the door!", question: "What is 23 + 15?", choices: [38, 37, 39], correctAnswer: 38, successMessage: "You powered the system! The door unlocks!" },
@@ -115,3 +132,6 @@ nextButton.onclick = () => {
     nextButton.classList.add("hidden");
   }
 };
+
+preloadImageForLevel(0);
+
