@@ -1,27 +1,31 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Game Select</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Robo Rescue Mission</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="game-select-screen">
-    <h1>Choose Your Adventure</h1>
-    <p>Select a game to begin your mission!</p>
-    <div class="game-options">
-      <button onclick="startGame('math')">Robo Rescue Mission</button>
-      <button onclick="startGame('word')">Word Traveler</button>
-    </div>
+  <div id="start-screen">
+    <h1>🤖 Robo Rescue Mission</h1>
+    <p>Help Sprocket the Robot rescue his friends by solving math puzzles!</p>
+    <button id="start-button">Start Game</button>
   </div>
 
-  <script>
-    function startGame(type) {
-      if (type === "math") {
-        window.location.href = "math_game.html"; // your existing game
-      } else if (type === "word") {
-        window.location.href = "word_game.html"; // new game to be built
-      }
-    }
-  </script>
+  <div id="game-container" class="hidden">
+    <h1>🤖 Robo Rescue Mission</h1>
+    <div id="story"></div>
+    <img id="story-image" class="story-image hidden" src="" alt="Story image" />
+    <div id="robot-animation" class="hidden">🤖⚙️</div>
+    <div id="question-container" class="hidden">
+      <p id="question"></p>
+      <div id="choices"></div>
+    </div>
+    <div id="result"></div>
+    <button id="next-button" class="hidden">Next</button>
+  </div>
+
+  <script src="game.js"></script>
 </body>
 </html>
