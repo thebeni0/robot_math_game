@@ -38,6 +38,23 @@ startButton.onclick = () => {
 function showLevel(level) {
   const current = levels[level];
   storyEl.textContent = current.scene;
+  const imageEl = document.getElementById("story-image"); // add <img id="story-image"> in your HTML
+
+  fetch("https://dalle-image-api.onrender.com/generate-image", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ prompt: current.scene })
+  })
+    .then(res => res.json())
+    .then(data => {
+      if (data.image_url) {
+        imageEl.src = data.image_url;
+        imageEl.classList.remove("hidden");
+      } else {
+        imageEl.alt = "No image could be generated";
+      }
+    });
+
   robotAnimation.classList.remove("hidden");
   setTimeout(() => {
     robotAnimation.classList.add("hidden");
