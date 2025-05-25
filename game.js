@@ -18,23 +18,133 @@ let startTime = 0;
 
 // 🧠 Game Chapters (Cleaned Prompts for Image Generation)
 const chapters = [
+[
   {
-    name: "The Gear Room",
-    type: "add-subtract",
-    intro: "🛠 Chapter 1: The Gear Room — Power up the system with addition and subtraction!",
-    levels: [
-      { scene: "Sparks fly as you approach the main control lever. Can you solve the gear calculation?", question: "What is 45 + 32?", choices: [77, 76, 78], correctAnswer: 77, successMessage: "Gear activated!" },
-      { scene: "The generator is silent. You need to restore its power to light up the lab!", question: "What is 78 - 29?", choices: [49, 50, 48], correctAnswer: 49, successMessage: "Generator humming!" },
-      { scene: "Darkness fills the room. Flip the switch and light the way forward.", question: "What is 23 + 19?", choices: [42, 43, 44], correctAnswer: 42, successMessage: "Lights on!" },
-      { scene: "You find a rusty hatch. Time to open it and see what’s inside!", question: "What is 61 - 18?", choices: [43, 42, 44], correctAnswer: 43, successMessage: "Hatch opened!" },
-      { scene: "A heavy door blocks your path. Can you power up the motor to open it?", question: "What is 37 + 42?", choices: [79, 78, 80], correctAnswer: 79, successMessage: "Motor spinning!" },
-      { scene: "The room is heating up! Start the fans to cool things down.", question: "What is 90 - 45?", choices: [45, 44, 46], correctAnswer: 45, successMessage: "Coolant activated!" },
-      { scene: "The robot arm isn’t moving right. Calibrate it for better precision.", question: "What is 66 + 13?", choices: [79, 78, 80], correctAnswer: 79, successMessage: "Arm calibrated!" },
-      { scene: "Battery low! Find a way to charge up the main power cell.", question: "What is 100 - 27?", choices: [73, 74, 72], correctAnswer: 73, successMessage: "Battery charged!" },
-      { scene: "Piston 2 is stuck. Can you get it working again?", question: "What is 54 + 36?", choices: [90, 91, 89], correctAnswer: 90, successMessage: "Piston 2 operational!" },
-      { scene: "The last bolt is out of place. Align it to finish repairs.", question: "What is 88 - 24?", choices: [64, 65, 63], correctAnswer: 64, successMessage: "Alignment complete!" }
+    "name": "The Gear Room",
+    "type": "add-subtract",
+    "intro": "\ud83d\udee0 Chapter 1: The Gear Room \u2014 Power up the system with addition and subtraction!",
+    "levels": [
+      {
+        "scene": "The robot gears are jammed! Help fix them by solving this math puzzle.",
+        "imagePrompt": "a robot gear room with mechanical parts and a friendly robot holding a wrench",
+        "question": "What is 45 + 32?",
+        "choices": [
+          77,
+          76,
+          78
+        ],
+        "correctAnswer": 77,
+        "successMessage": "Gear activated!"
+      },
+      {
+        "scene": "Oh no! The power generator has stopped working. Let's do some math to turn it back on.",
+        "imagePrompt": "a glowing generator with flickering lights and a concerned robot nearby",
+        "question": "What is 78 - 29?",
+        "choices": [
+          49,
+          50,
+          48
+        ],
+        "correctAnswer": 49,
+        "successMessage": "Generator humming!"
+      },
+      {
+        "scene": "The lights are off in the gear room. Can you solve this to turn them on?",
+        "imagePrompt": "a dim gear room with a robot trying to flip a large circuit switch",
+        "question": "What is 23 + 19?",
+        "choices": [
+          42,
+          43,
+          44
+        ],
+        "correctAnswer": 42,
+        "successMessage": "Lights on!"
+      },
+      {
+        "scene": "The hatch to the main gear shaft is locked! Let\u2019s solve this to open it.",
+        "imagePrompt": "a hatch door with glowing locks and a small helper robot nearby",
+        "question": "What is 61 - 18?",
+        "choices": [
+          43,
+          42,
+          44
+        ],
+        "correctAnswer": 43,
+        "successMessage": "Hatch opened!"
+      },
+      {
+        "scene": "The heavy motor that opens the door needs power! Solve this problem to help.",
+        "imagePrompt": "a robot lifting a giant wrench next to a motorized door",
+        "question": "What is 37 + 42?",
+        "choices": [
+          79,
+          78,
+          80
+        ],
+        "correctAnswer": 79,
+        "successMessage": "Motor spinning!"
+      },
+      {
+        "scene": "The coolant fans have stopped spinning. It\u2019s getting hot! Let\u2019s fix that.",
+        "imagePrompt": "a control panel with fans and steam coming out, robot fanning itself",
+        "question": "What is 90 - 45?",
+        "choices": [
+          45,
+          44,
+          46
+        ],
+        "correctAnswer": 45,
+        "successMessage": "Coolant activated!"
+      },
+      {
+        "scene": "The robot's arm needs a tune-up. Can you calibrate it with this math?",
+        "imagePrompt": "a robot arm adjusting knobs on a circuit board",
+        "question": "What is 66 + 13?",
+        "choices": [
+          79,
+          78,
+          80
+        ],
+        "correctAnswer": 79,
+        "successMessage": "Arm calibrated!"
+      },
+      {
+        "scene": "The battery is low! Help recharge it with the correct answer.",
+        "imagePrompt": "a glowing battery being charged by cables connected to a robot",
+        "question": "What is 100 - 27?",
+        "choices": [
+          73,
+          74,
+          72
+        ],
+        "correctAnswer": 73,
+        "successMessage": "Battery charged!"
+      },
+      {
+        "scene": "Piston 2 isn\u2019t moving. Let\u2019s activate it with your math power!",
+        "imagePrompt": "a mechanical piston with steam and a helper robot pressing a button",
+        "question": "What is 54 + 36?",
+        "choices": [
+          90,
+          91,
+          89
+        ],
+        "correctAnswer": 90,
+        "successMessage": "Piston 2 operational!"
+      },
+      {
+        "scene": "All systems are almost ready. Just align the final bolt!",
+        "imagePrompt": "a final gear puzzle with bolts and a robot holding a bolt in one hand",
+        "question": "What is 88 - 24?",
+        "choices": [
+          64,
+          65,
+          63
+        ],
+        "correctAnswer": 64,
+        "successMessage": "Alignment complete!"
+      }
     ]
-  },
   {
     name: "Conveyor Belt Chaos",
     type: "word-problem",
