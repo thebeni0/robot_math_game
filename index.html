@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Choose Your Adventure</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      background-color: #f4f4f4;
+      padding: 50px;
+    }
+    .game-select-screen {
+      max-width: 600px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+    }
+    .game-options button {
+      font-size: 18px;
+      padding: 15px 25px;
+      margin: 15px;
+      border: none;
+      background-color: #4A90E2;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .game-options button:hover {
+      background-color: #357ABD;
+    }
+  </style>
+</head>
+<body>
+  <div class="game-select-screen">
+    <h1>Choose Your Adventure</h1>
+    <p>Select a game to begin your mission!</p>
+    <div class="game-options">
+      <button onclick="startGame('math')">🤖 Robo Rescue Mission</button>
+      <button onclick="startGame('word')">🌍 Word Traveler</button>
+    </div>
+  </div>
+
+  <script>
+    function startGame(type) {
+      if (type === "math") {
+        window.location.href = "math_game.html"; // your renamed game
+      } else if (type === "word") {
+        window.location.href = "word_game.html"; // new game (coming soon)
+      }
+    }
+  </script>
+</body>
+</html>
