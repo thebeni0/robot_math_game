@@ -10,6 +10,8 @@ const choicesEl = document.getElementById("choices");
 const resultEl = document.getElementById("result");
 const nextButton = document.getElementById("next-button");
 
+let nextImageURL = null;
+
 const levels = [
   // Chapter 1: Gear Room
   { scene: "Chapter 1: The Gear Room. Sprocket is stuck and needs power to open the door!", question: "What is 23 + 15?", choices: [38, 37, 39], correctAnswer: 38, successMessage: "You powered the system! The door unlocks!" },
@@ -51,22 +53,29 @@ function showLevel(level) {
   imageEl.classList.add("hidden");
   imageEl.src = "";
 
-  fetch("https://dalle-image-api.onrender.com/generate-image", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ prompt: current.scene })
-  })
-    .then(res => res.json())
-    .then(data => {
-      console.log("Image generation response:", data);
-      if (data.image_url) {
-        imageEl.src = data.image_url;
-        imageEl.classList.remove("hidden");
-      } else {
-        imageEl.alt = "No image could be generated";
-      }
-    });
+  // If we already preloaded it, use it
+  if (nextImageURL) {
+    imageEl.src = nextImageURL;
+    imageEl.classList.remove("hidden");
+    nextImageURL = null; // reset for next cycle
+  }
 
+  // Preload the NEXT image if it exists
+  if (levels[level + 1]) {
+    fetch("https://dalle-image-api.onrender.com/generate-image", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ prompt: levels[level + 1].scene })
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (data.image_url) {
+          nextImageURL = data.image_url;
+        }
+      });
+  }
+
+  // Show the rest of the UI
   robotAnimation.classList.remove("hidden");
   setTimeout(() => {
     robotAnimation.classList.add("hidden");
@@ -83,6 +92,7 @@ function showLevel(level) {
     nextButton.classList.add("hidden");
   }, 1000);
 }
+
 
 function handleAnswer(choice) {
   const current = levels[currentLevel];
