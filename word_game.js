@@ -1,3 +1,4 @@
+
 const gameData = wordGameData;
 let currentCity = 0;
 let currentQuestion = 0;
@@ -7,27 +8,66 @@ const questionEl = document.getElementById("question");
 const choicesEl = document.getElementById("choices");
 const resultEl = document.getElementById("result");
 const nextButton = document.getElementById("next-button");
+const imageEl = document.getElementById("scene-image");
+
+function preloadImage(prompt) {
+  fetch("https://dalle-image-api.onrender.com/generate-image", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ prompt: prompt })
+  })
+    .then(res => res.json())
+    .then(data => {
+      if (data.image_url) {
+        imageEl.src = data.image_url;
+        imageEl.style.display = "block";
+      }
+    });
+}
 
 function showQuestion() {
   const city = gameData[currentCity];
-  const level = city.levels[currentQuestion];
-  sceneEl.textContent = level.scene;
-  questionEl.textContent = level.question;
-  choicesEl.innerHTML = "";
+  const level = city.questions[currentQuestion];
+  sceneEl.textContent = city.intro;
   resultEl.textContent = "";
-  level.choices.forEach(choice => {
-    const btn = document.createElement("button");
-    btn.textContent = choice;
-    btn.onclick = () => handleAnswer(choice);
-    choicesEl.appendChild(btn);
-  });
+  nextButton.style.display = "none";
+  choicesEl.innerHTML = "";
+  imageEl.style.display = "none";
+
+  if (city.type === "spelling") {
+    questionEl.textContent = `Spell this word: ${level.imageWord}`;
+    preloadImage(level.imagePrompt);
+    const input = document.createElement("input");
+    input.type = "text";
+    input.placeholder = "Type the word";
+    input.id = "spelling-input";
+    choicesEl.appendChild(input);
+
+    const submitBtn = document.createElement("button");
+    submitBtn.textContent = "Submit";
+    submitBtn.onclick = () => {
+      const userInput = document.getElementById("spelling-input").value.trim().toLowerCase();
+      handleAnswer(userInput);
+    };
+    choicesEl.appendChild(submitBtn);
+  } else {
+    questionEl.textContent = level.question;
+    preloadImage(level.imagePrompt);
+    level.choices.forEach(choice => {
+      const btn = document.createElement("button");
+      btn.textContent = choice;
+      btn.onclick = () => handleAnswer(choice);
+      choicesEl.appendChild(btn);
+    });
+  }
 }
 
 function handleAnswer(choice) {
   const city = gameData[currentCity];
-  const level = city.levels[currentQuestion];
-  if (choice === level.correctAnswer) {
-    resultEl.textContent = level.successMessage;
+  const level = city.questions[currentQuestion];
+  const correct = city.type === "spelling" ? level.imageWord.toLowerCase() : level.answer;
+  if (choice === correct) {
+    resultEl.textContent = level.successMessage || "Great job!";
     nextButton.style.display = "inline-block";
   } else {
     resultEl.textContent = "Try again!";
@@ -37,7 +77,7 @@ function handleAnswer(choice) {
 nextButton.onclick = () => {
   currentQuestion++;
   const city = gameData[currentCity];
-  if (currentQuestion >= city.levels.length) {
+  if (currentQuestion >= city.questions.length) {
     currentCity++;
     currentQuestion = 0;
     if (currentCity >= gameData.length) {
@@ -46,6 +86,7 @@ nextButton.onclick = () => {
       choicesEl.innerHTML = "";
       resultEl.textContent = "";
       nextButton.style.display = "none";
+      imageEl.style.display = "none";
       return;
     }
   }
