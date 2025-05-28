@@ -1,5 +1,4 @@
-
-const gameData = wordGameData;
+let gameData = [];
 let currentCity = 0;
 let currentQuestion = 0;
 
@@ -14,7 +13,7 @@ function preloadImage(prompt) {
   fetch("https://dalle-image-api.onrender.com/generate-image", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ prompt: prompt })
+    body: JSON.stringify({ prompt })
   })
     .then(res => res.json())
     .then(data => {
@@ -22,7 +21,8 @@ function preloadImage(prompt) {
         imageEl.src = data.image_url;
         imageEl.style.display = "block";
       }
-    });
+    })
+    .catch(err => console.error("Image load error:", err));
 }
 
 function showQuestion() {
@@ -94,6 +94,16 @@ nextButton.onclick = () => {
 };
 
 window.onload = () => {
-  nextButton.style.display = "none";
-  showQuestion();
+  fetch("world_game_data.json")
+    .then(res => res.json())
+    .then(data => {
+      gameData = data;
+      nextButton.style.display = "none";
+      showQuestion();
+    })
+    .catch(err => {
+      sceneEl.textContent = "Error loading game data.";
+      console.error("Fetch error:", err);
+    });
 };
+
