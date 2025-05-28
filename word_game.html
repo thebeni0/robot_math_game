@@ -7,13 +7,20 @@
 <body>
   <div id="word-game-container">
     <h1>🌍 Word Traveler</h1>
-    <div id="city-name"></div>
-    <div id="challenge"></div>
+    
+    <!-- New: Image container -->
+    <img id="scene-image" style="display: none; max-width: 300px; margin: 10px 0;" alt="Scene illustration" />
+
+    <!-- These IDs must match the JS -->
+    <div id="scene"></div>
+    <div id="question"></div>
     <div id="choices"></div>
     <div id="result"></div>
-    <button id="next-city-button">Next City</button>
+    
+    <button id="next-button">Next</button>
   </div>
 
-  <script src="word_game.js"></script>
+  <!-- Your script -->
+  <script src="world_game.js" defer></script>
 </body>
 </html>
