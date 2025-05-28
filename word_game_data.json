@@ -1,0 +1,167 @@
+[
+  {
+    "name": "Seattle",
+    "type": "vocab-matching",
+    "intro": "\ud83c\udf27 Welcome to Seattle! Match words with their meanings to help build the space needle!",
+    "questions": [
+      {
+        "question": "What does 'enormous' mean?",
+        "choices": [
+          "tiny",
+          "huge",
+          "slow"
+        ],
+        "answer": "huge",
+        "imagePrompt": "A cartoon for kids showing the meaning of: 'What does 'enormous' mean?'"
+      },
+      {
+        "question": "What does 'rapid' mean?",
+        "choices": [
+          "fast",
+          "soft",
+          "quiet"
+        ],
+        "answer": "fast",
+        "imagePrompt": "A cartoon for kids showing the meaning of: 'What does 'rapid' mean?'"
+      },
+      {
+        "question": "What does 'whisper' mean?",
+        "choices": [
+          "yell",
+          "talk softly",
+          "run"
+        ],
+        "answer": "talk softly",
+        "imagePrompt": "A cartoon for kids showing the meaning of: 'What does 'whisper' mean?'"
+      },
+      {
+        "question": "What does 'fragile' mean?",
+        "choices": [
+          "strong",
+          "easily broken",
+          "big"
+        ],
+        "answer": "easily broken",
+        "imagePrompt": "A cartoon for kids showing the meaning of: 'What does 'fragile' mean?'"
+      },
+      {
+        "question": "What does 'ancient' mean?",
+        "choices": [
+          "new",
+          "old",
+          "tall"
+        ],
+        "answer": "old",
+        "imagePrompt": "A cartoon for kids showing the meaning of: 'What does 'ancient' mean?'"
+      },
+      {
+        "question": "What does 'giggle' mean?",
+        "choices": [
+          "cry",
+          "laugh",
+          "sneeze"
+        ],
+        "answer": "laugh",
+        "imagePrompt": "A cartoon for kids showing the meaning of: 'What does 'giggle' mean?'"
+      }
+    ]
+  },
+  {
+    "name": "Gibraltar",
+    "type": "fill-in-the-blank",
+    "intro": "\ud83e\udea8 Welcome to Gibraltar! Fill in the missing words to climb the Rock of Gibraltar!",
+    "questions": [
+      {
+        "question": "The cat sat ___ the mat.",
+        "choices": [
+          "on",
+          "in",
+          "under"
+        ],
+        "answer": "on",
+        "imagePrompt": "A cartoon for kids showing the meaning of: 'The cat sat ___ the mat.'"
+      },
+      {
+        "question": "He is ___ than me.",
+        "choices": [
+          "taller",
+          "tallest",
+          "tall"
+        ],
+        "answer": "taller",
+        "imagePrompt": "A cartoon for kids showing the meaning of: 'He is ___ than me.'"
+      },
+      {
+        "question": "We went to the park to ___.",
+        "choices": [
+          "eat",
+          "play",
+          "sleep"
+        ],
+        "answer": "play",
+        "imagePrompt": "A cartoon for kids showing the meaning of: 'We went to the park to ___.'"
+      },
+      {
+        "question": "She likes to drink ___ in the morning.",
+        "choices": [
+          "juice",
+          "shoes",
+          "bark"
+        ],
+        "answer": "juice",
+        "imagePrompt": "A cartoon for kids showing the meaning of: 'She likes to drink ___ in the morning.'"
+      },
+      {
+        "question": "A ___ can fly in the sky.",
+        "choices": [
+          "fish",
+          "bird",
+          "cat"
+        ],
+        "answer": "bird",
+        "imagePrompt": "A cartoon for kids showing the meaning of: 'A ___ can fly in the sky.'"
+      },
+      {
+        "question": "He brushed his ___ after dinner.",
+        "choices": [
+          "teeth",
+          "shoes",
+          "hat"
+        ],
+        "answer": "teeth",
+        "imagePrompt": "A cartoon for kids showing the meaning of: 'He brushed his ___ after dinner.'"
+      }
+    ]
+  },
+  {
+    "name": "Beaverton",
+    "type": "spelling",
+    "intro": "\ud83e\uddab Welcome to Beaverton! Spell each word to cross the river on logs!",
+    "questions": [
+      {
+        "imageWord": "apple",
+        "imagePrompt": "A cartoon image of a friendly apple for kids, colorful and simple"
+      },
+      {
+        "imageWord": "house",
+        "imagePrompt": "A cartoon image of a friendly house for kids, colorful and simple"
+      },
+      {
+        "imageWord": "robot",
+        "imagePrompt": "A cartoon image of a friendly robot for kids, colorful and simple"
+      },
+      {
+        "imageWord": "train",
+        "imagePrompt": "A cartoon image of a friendly train for kids, colorful and simple"
+      },
+      {
+        "imageWord": "beaver",
+        "imagePrompt": "A cartoon image of a friendly beaver for kids, colorful and simple"
+      },
+      {
+        "imageWord": "banana",
+        "imagePrompt": "A cartoon image of a friendly banana for kids, colorful and simple"
+      }
+    ]
+  }
+]
